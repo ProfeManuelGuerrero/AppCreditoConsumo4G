@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Crédito de Consumo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navbar lateral -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h3>Menú</h3>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="#info" class="nav-btn" data-section="info"> Información</a></li>
+            <li><a href="#simulator" class="nav-btn" data-section="simulator"> Simulador</a></li>
+            <li><a href="#results" class="nav-btn" data-section="results"> Resultados</a></li>
+            <li><a href="#amortization" class="nav-btn" data-section="amortization"> Tabla</a></li>
+        </ul>
+    </nav>
+
+    <!-- Botón para mostrar/ocultar navbar en móviles -->
+    <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+
+    <div class="container">
+        <header>
+            <h1>Simulador de Crédito de Consumo</h1>
+            <p>Calcula tu cuota mensual y tabla de amortización</p>
+        </header>
+
+        <main>
+            <!-- Sección Informativa -->
+            <section class="info-section" id="info">
+                <h2>¿QUÉ SABEMOS DE UN CRÉDITO DE CONSUMO?</h2>
+                
+                <div class="faq">
+                    <div class="faq-item">
+                        <h4>¿Qué es un crédito de consumo?</h4>
+                        <p>Un crédito de consumo es un préstamo que otorgan las instituciones financieras a personas naturales para financiar la compra de bienes o servicios de consumo personal o familiar.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <h4>Razones por las cuales solicitar un crédito de consumo:</h4>
+                        <ul>
+                            <li><strong>Metas personales:</strong> Financiar estudios, viajes, matrimonios</li>
+                            <li><strong>Proyectos:</strong> Remodelaciones del hogar, emprendimientos</li>
+                            <li><strong>Emergencias:</strong> Gastos médicos inesperados</li>
+                            <li><strong>Consolidación:</strong> Unificar deudas existentes</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <h4>¿Cuáles son los costos asociados a solicitar un crédito?</h4>
+                        <ul>
+                            <li><strong>Tasa de interés:</strong> Porcentaje que se cobra sobre el capital prestado</li>
+                            <li><strong>Comisiones:</strong> Gastos administrativos y de evaluación</li>
+                            <li><strong>Seguros:</strong> Desgravamen, cesantía u hospitalarios (opcionales)</li>
+                            <li><strong>Gastos notariales:</strong> En algunos casos específicos</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <h4>¿En qué fijarse al momento de solicitar un crédito de consumo? CAE</h4>
+                        <p>La <strong>Carga Anual Equivalente (CAE)</strong> es el indicador más importante, ya que incluye todos los costos asociados al crédito (intereses, comisiones, seguros, gastos notariales) expresados en una tasa anual única que permite comparar diferentes ofertas.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <h4>¿Cómo se calcula el valor cuota? ¿Qué son los intereses y la amortización?</h4>
+                        <p><strong>Valor cuota:</strong> Se calcula usando la fórmula de anualidades. Incluye capital (amortización) e intereses.</p>
+                        <p><strong>Intereses:</strong> Es el costo del dinero prestado, se calcula sobre el saldo adeudado.</p>
+                        <p><strong>Amortización:</strong> Es la parte de la cuota que reduce el capital adeudado.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Simulador -->
+            <section class="simulator-section" id="simulator">
+                <h2>Simulemos un crédito de consumo</h2>
+                
+                <div class="calculator-container">
+                    <div class="input-section">
+                        <h3>Datos del Crédito</h3>
+                        <form id="creditForm">
+                            <div class="form-group">
+                                <label for="amount">Monto del Crédito ($)</label>
+                                <input type="number" id="amount" min="100000" max="50000000" step="1000" value="4000000" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="rate">Tasa de Interés Mensual (%)</label>
+                                <input type="number" id="rate" min="0.1" max="10" step="0.01" value="0.98" required>
+                                <small>Ingrese la tasa mensual (ej: 0.98 para 0.98%)</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="term">Plazo (meses)</label>
+                                <input type="number" id="term" min="6" max="120" value="24" required>
+                            </div>
+                            
+                            <button type="submit">Calcular Crédito</button>
+                        </form>
+                    </div>
+                    
+                    <div class="results-section">
+                        <h3>Resultados</h3>
+                        <div id="results" class="results-display">
+                            <p>Complete los datos y presione "Calcular Crédito" para ver los resultados.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tabla de Amortización -->
+                <div class="amortization-section" id="amortization">
+                    <h3>Tabla de Amortización</h3>
+                    <div class="table-container">
+                        <table id="amortizationTable">
+                            <thead>
+                                <tr>
+                                    <th>N° DE CUOTA <span class="info-wrapper"><span class="info-circle" tabindex="0" aria-label="Información: Número de cuota">i</span><span class="tooltip">Indica el número del pago dentro del plan de amortización (1, 2, 3, ...).</span></span></th>
+                                    <th>VALOR CUOTA <span class="info-wrapper"><span class="info-circle" tabindex="0" aria-label="Información: Valor cuota">i</span><span class="tooltip">Pago mensual fijo calculado con la fórmula de anualidades (método francés).</span></span></th>
+                                    <th>INTERESES <span class="info-wrapper"><span class="info-circle" tabindex="0" aria-label="Información: Intereses">i</span><span class="tooltip">Costo del dinero prestado. Se calcula cada periodo: saldo adeudado × tasa mensual.</span></span></th>
+                                    <th>AMORTIZACIÓN <span class="info-wrapper"><span class="info-circle" tabindex="0" aria-label="Información: Amortización">i</span><span class="tooltip">Parte de la cuota que reduce el capital: valor cuota − intereses.</span></span></th>
+                                    <th>SALDO ADEUDADO <span class="info-wrapper"><span class="info-circle" tabindex="0" aria-label="Información: Saldo adeudado">i</span><span class="tooltip">Capital pendiente tras amortizar: saldo anterior − amortización.</span></span></th>
+                                </tr>
+                            </thead>
+                            <tbody id="amortizationBody">
+                                <tr>
+                                    <td colspan="5" class="no-data">No hay datos para mostrar. Calcule un crédito primero.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
